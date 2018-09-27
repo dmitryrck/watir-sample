@@ -11,7 +11,7 @@ run \
   apt-get install -y google-chrome-stable libappindicator1 fonts-liberation \
     xvfb unzip \
     libdbus-glib-1-2 && \
-  gem install --no-ri --no-rdoc watir webdrivers headless && \
+  gem install --no-ri --no-rdoc rspec watir watir-rspec headless && \
   wget -q http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip && \
   unzip chromedriver_linux64.zip -d /usr/local/bin && \
   rm chromedriver_linux64.zip && \
