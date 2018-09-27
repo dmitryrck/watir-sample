@@ -101,6 +101,7 @@ end
 
 # Configuration for watir-rspec
 require "watir/rspec"
+require "headless"
 
 RSpec.configure do |config|
   # Use Watir::RSpec::HtmlFormatter to get links to the screenshots, html and
@@ -110,12 +111,15 @@ RSpec.configure do |config|
 
   # Open up the browser for each example.
   config.before :all do
-    @browser = Watir::Browser.new
+    @headless = Headless.new
+    @headless.start
+    @browser = Watir::Browser.new :firefox
   end
 
   # Close that browser after each example.
   config.after :all do
     @browser.close if @browser
+    @headless.destroy
   end
 
   # Include RSpec::Helper into each of your example group for making it possible to
