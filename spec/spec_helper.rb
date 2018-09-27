@@ -111,15 +111,19 @@ RSpec.configure do |config|
 
   # Open up the browser for each example.
   config.before :all do
-    @headless = Headless.new
-    @headless.start
+    if ENV.fetch("HEADLESS", "false") != "false"
+      @headless = Headless.new
+      @headless.start
+    end
     @browser = Watir::Browser.new :firefox
   end
 
   # Close that browser after each example.
   config.after :all do
     @browser.close if @browser
-    @headless.destroy
+    if defined?(@headless)
+      @headless.destroy
+    end
   end
 
   # Include RSpec::Helper into each of your example group for making it possible to
