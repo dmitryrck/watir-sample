@@ -26,4 +26,23 @@ describe "Redisuser" do
 
     expect(body.text).to match "John Doe"
   end
+
+  context "when there is a user in the database" do
+    before do
+      text_field(id: "list_name").set("List#{number}")
+      button(class: "btn-primary").click
+      title = h1(class: "mt-5")
+      a(text: "New User").click
+      text_field(id: "name").set("John")
+      text_field(id: "email").set("john.doe@example.com")
+      text_field(id: "password").set("secret")
+      button(text: "Submit").click
+    end
+
+    it "should be able to delete" do
+      a(title: "Delete").click
+
+      expect(body.text).not_to match "John Doe"
+    end
+  end
 end
