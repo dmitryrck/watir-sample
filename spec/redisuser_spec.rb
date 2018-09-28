@@ -33,7 +33,7 @@ describe "Redisuser" do
       button(class: "btn-primary").click
       title = h1(class: "mt-5")
       a(text: "New User").click
-      text_field(id: "name").set("John")
+      text_field(id: "name").set("John Doe")
       text_field(id: "email").set("john.doe@example.com")
       text_field(id: "password").set("secret")
       button(text: "Submit").click
@@ -43,6 +43,16 @@ describe "Redisuser" do
       a(title: "Delete").click
 
       expect(body.text).not_to match "John Doe"
+    end
+
+    it "should be able to update" do
+      a(title: "Edit").click
+      text_field(id: "name").set("Alice Doe")
+      text_field(id: "email").set("alice.doe@example.com")
+      text_field(id: "password").set("secret")
+      button(text: "Submit").click
+
+      expect(body.text).to match "Alice Doe"
     end
   end
 end
