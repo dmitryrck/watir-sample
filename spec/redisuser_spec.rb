@@ -54,5 +54,23 @@ describe "Redisuser" do
 
       expect(body.text).to match "Alice Doe"
     end
+
+    it "should be able to login" do
+      a(title: "Login").click
+      text_field(id: "email").set("john.doe@example.com")
+      text_field(id: "password").set("secret")
+      button(text: "Submit").click
+
+      expect(body.text).to match "Welcome, John Doe"
+    end
+
+    it "should not be able to login" do
+      a(title: "Login").click
+      text_field(id: "email").set("john.doe@example.com")
+      text_field(id: "password").set("secret2")
+      button(text: "Submit").click
+
+      expect(body.text).not_to match "Welcome, John Doe"
+    end
   end
 end
